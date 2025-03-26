@@ -7,6 +7,8 @@ A React-based financial portfolio management dashboard with loan management and 
 
 ![Upload image](https://github.com/user-attachments/assets/0acf6027-9f53-49c2-865c-06763a115b22)
 
+![Mobile view](https://github.com/user-attachments/assets/3df3bf90-4ba6-4f3c-943c-bfc70c9a78e5)
+
 
 ## 📌 Features
 
