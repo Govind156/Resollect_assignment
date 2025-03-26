@@ -2,7 +2,11 @@
 
 A React-based financial portfolio management dashboard with loan management and document upload functionality. This project replicates the Resollect interface for managing loan portfolios with modern UI components and responsive design.
 
-![Resollect Dashboard](https://github.com/username/resollect_assignment/raw/main/screenshots/dashboard.png)
+
+![Dashboard](https://github.com/user-attachments/assets/b5bfde9c-e83c-4e71-a39a-c472096135aa)
+
+![Upload image](https://github.com/user-attachments/assets/0acf6027-9f53-49c2-865c-06763a115b22)
+
 
 ## 📌 Features
 
@@ -118,17 +122,10 @@ Table pagination is handled through React Table's `usePagination` hook, showing 
 ### Responsive Design
 The dashboard is responsive across different screen sizes, with appropriate layout changes for mobile and tablet views.
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/username/resollect_assignment/issues).
-
-## 📄 License
-
-This project is [MIT](LICENSE) licensed.
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Govind Madaan**
 
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [Your Name](https://linkedin.com/in/your-profile) 
+- GitHub: [@Govind156](https://github.com/Govind156)
+- LinkedIn: [Govind Madaan](https://www.linkedin.com/in/govindmadaan/) 
