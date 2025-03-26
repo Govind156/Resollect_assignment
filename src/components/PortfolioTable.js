@@ -362,14 +362,14 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 h-full flex flex-col">
-      <h2 className="text-2xl font-semibold mb-6">Portfolio</h2>
+      <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Portfolio</h2>
       
-      {/* Filter tabs */}
-      <div className="flex flex-wrap gap-2 mb-6 border-b pb-4">
+      {/* Filter tabs - make them smaller on mobile */}
+      <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6 border-b pb-3 sm:pb-4">
         {filters.map((filter) => (
           <button
             key={filter}
-            className={`px-4 py-2 rounded-md text-sm border transition-colors ${
+            className={`px-2 sm:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm border transition-colors ${
               activeFilter === filter
                 ? 'bg-primary text-white border-primary'
                 : 'text-gray-700 border-gray-300 hover:bg-gray-100'
@@ -383,24 +383,24 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
       
       {/* Search and actions */}
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
-        <div className="w-full md:w-96">
+        <div className="w-full md:w-96 flex justify-center md:justify-start">
           <input
             type="text"
             placeholder="Search Loan Number"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full max-w-sm px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex gap-1 sm:gap-2 justify-center md:justify-end">
           <div className="relative">
             <button 
-              className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium flex items-center"
+              className="bg-primary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm font-medium flex items-center"
               onClick={() => setShowColumnsDropdown(!showColumnsDropdown)}
             >
-              <span>Select Columns</span>
-              <svg className={`w-4 h-4 ml-2 transition-transform ${showColumnsDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="whitespace-nowrap">Select Columns</span>
+              <svg className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 transition-transform ${showColumnsDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -408,22 +408,30 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
             <AnimatePresence>
               {showColumnsDropdown && (
                 <motion.div 
-                  className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg overflow-hidden z-20"
+                  className="absolute right-0 mt-1 sm:mt-2 w-48 sm:w-64 bg-white rounded-md shadow-lg overflow-hidden z-20"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
+                  style={{
+                    maxWidth: 'calc(100vw - 24px)',
+                    right: window.innerWidth < 640 ? '-50%' : 0,
+                    transform: window.innerWidth < 640 ? 'translateX(-50%)' : 'none'
+                  }}
                 >
-                  <div className="p-2">
+                  <div className="p-1 sm:p-2">
                     {allColumns.map(column => (
-                      <div key={column.id} className="flex items-center px-3 py-2 hover:bg-gray-50">
+                      <div key={column.id} className="flex items-center px-2 sm:px-3 py-1 sm:py-2 hover:bg-gray-50">
                         <input
                           type="checkbox"
                           id={`column-${column.id}`}
                           checked={visibleColumns[column.id]}
                           onChange={() => toggleColumn(column.id)}
-                          className="mr-2"
+                          className="mr-2 h-3 w-3 md:h-4 md:w-4"
                         />
-                        <label htmlFor={`column-${column.id}`} className="cursor-pointer w-full">
+                        <label 
+                          htmlFor={`column-${column.id}`} 
+                          className="cursor-pointer w-full text-xs sm:text-sm truncate"
+                        >
                           {column.label}
                         </label>
                       </div>
@@ -434,10 +442,10 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
             </AnimatePresence>
           </div>
           
-          <div className="ml-2">
-            <button className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium flex items-center">
-              <span>More Filters</span>
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="ml-1 sm:ml-2">
+            <button className="bg-primary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm font-medium flex items-center">
+              <span className="whitespace-nowrap">More Filters</span>
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -446,34 +454,35 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
       </div>
       
       {/* Number of selected loans */}
-      <div className="text-right mb-4 text-sm text-gray-600">
+      <div className="text-right mb-2 sm:mb-4 text-xs sm:text-sm text-gray-600">
         {selectedLoans.length} loans selected
       </div>
       
       {/* Table Container - flexGrow to take remaining space */}
-      <div className="flex-grow overflow-hidden">
+      <div className="flex-grow overflow-hidden flex flex-col">
         {/* Horizontal scrolling container */}
-        <div className="overflow-x-auto h-full">
+        <div className="overflow-x-auto">
           {/* Vertical scrolling container */}
-          <div className="overflow-y-auto h-full">
-            <table {...getTableProps()} className="min-w-full divide-y divide-gray-200 table-fixed">
+          <div className="overflow-y-auto max-h-[calc(100vh-350px)] sm:max-h-[calc(100vh-320px)]">
+            <table {...getTableProps()} className="min-w-full divide-y divide-gray-200 border-separate border-spacing-0">
               <thead className="bg-gray-50 sticky top-0 z-10">
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
                       <th
                         {...column.getHeaderProps(column.getSortByToggleProps())}
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                        className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap bg-gray-50 border-b"
+                        style={{ position: 'sticky', top: 0, zIndex: 10 }}
                       >
                         <div className="flex items-center">
                           {column.render('Header')}
                           {column.isSorted ? (
                             column.isSortedDesc ? (
-                              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                               </svg>
                             ) : (
-                              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
                               </svg>
                             )
@@ -498,7 +507,10 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
                       whileHover={{ backgroundColor: 'rgba(243, 244, 246, 0.7)' }}
                     >
                       {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <td 
+                          {...cell.getCellProps()} 
+                          className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-700 border-b border-gray-200"
+                        >
                           {cell.render('Cell')}
                         </td>
                       ))}
@@ -509,18 +521,25 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
             </table>
           </div>
         </div>
+        
+        {/* Empty state for when no rows */}
+        {page.length === 0 && (
+          <div className="w-full py-10 text-center text-gray-500">
+            No data available
+          </div>
+        )}
       </div>
       
       {/* Pagination */}
-      <div className="border-t border-gray-200 py-3 px-2 mt-4 flex items-center justify-between">
-        <div className="text-sm text-gray-700">
+      <div className="border-t border-gray-200 py-2 sm:py-3 px-1 sm:px-2 mt-2 sm:mt-4 flex flex-col sm:flex-row items-center sm:justify-between">
+        <div className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-0">
           Total {filteredLoans.length} results
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 sm:gap-2 items-center">
           <button
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
-            className={`px-3 py-1 rounded border ${
+            className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm border ${
               !canPreviousPage
                 ? 'border-gray-200 text-gray-400 bg-gray-50 cursor-not-allowed'
                 : 'border-blue-500 text-blue-500 hover:bg-blue-50'
@@ -528,7 +547,7 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
           >
             Previous
           </button>
-          <span className="text-gray-700 text-sm">
+          <span className="text-gray-700 text-xs sm:text-sm">
             Page{' '}
             <span className="font-medium">{pageIndex + 1}</span> of{' '}
             <span className="font-medium">{pageOptions.length}</span>
@@ -536,7 +555,7 @@ const PortfolioTable = ({ activeFilter, setActiveFilter }) => {
           <button
             onClick={() => nextPage()}
             disabled={!canNextPage}
-            className={`px-3 py-1 rounded border ${
+            className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm border ${
               !canNextPage
                 ? 'border-gray-200 text-gray-400 bg-gray-50 cursor-not-allowed'
                 : 'border-blue-500 text-blue-500 hover:bg-blue-50'

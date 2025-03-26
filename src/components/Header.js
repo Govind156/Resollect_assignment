@@ -1,11 +1,36 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Header = ({ setShowUploadModal }) => {
+const Header = ({ setShowUploadModal, toggleSidebar, isSidebarOpen }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm h-16 flex items-center justify-end px-6">
+    <header className="bg-white shadow-sm h-16 flex items-center justify-between px-6">
+      {/* Mobile Sidebar Toggle Button */}
+      <div className="md:hidden">
+        <button 
+          onClick={toggleSidebar}
+          className="p-2 rounded-md hover:bg-gray-100 sidebar-toggle"
+        >
+          <svg 
+            className="w-6 h-6" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {isSidebarOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {/* Empty div to maintain spacing on desktop */}
+      <div className="hidden md:block"></div>
+      
       <div className="relative">
         <button 
           className="flex items-center"

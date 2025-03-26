@@ -14,6 +14,19 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { id: 'Permissions', icon: '🔒' },
   ];
 
+  const handleItemClick = (id) => {
+    setActiveTab(id);
+    // On mobile, if we have a toggleSidebar prop, call it to close sidebar after selection
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      // Find the parent App component's toggleSidebar from the DOM
+      const sidebarToggle = document.querySelector('.sidebar-toggle');
+      if (sidebarToggle) {
+        sidebarToggle.click();
+      }
+    }
+  };
+
   return (
     <div className="w-64 bg-white shadow-md flex flex-col h-full">
       <div className="p-4 flex items-center border-b">
@@ -21,7 +34,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         <span className="ml-2 font-semibold text-lg">esollect</span>
       </div>
       
-      <nav className="flex-1">
+      <nav className="flex-1 overflow-y-auto">
         <ul className="py-2">
           {menuItems.map((item) => (
             <li key={item.id} className="px-4 py-2">
@@ -33,7 +46,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleItemClick(item.id)}
               >
                 <span className="mr-3">{item.icon}</span>
                 <span>{item.id}</span>
