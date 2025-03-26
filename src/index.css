@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: hidden; /* Hide vertical scrollbar on body */
+}
+
+/* Hide scrollbar on all main containers except the table container */
+#root, .flex-1, main {
+  overflow-y: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Specific scrollbar styling for table container */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px; /* Only apply to horizontal scrollbar */
+  width: 0; /* Hide vertical scrollbar in the outer container */
+}
+
+/* Show vertical scrollbar only in the inner table container */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px; /* Only apply to vertical scrollbar */
+  height: 0; /* Hide horizontal scrollbar in the inner container */
+}
+
+/* Make sure table header stays visible */
+.sticky {
+  position: sticky;
+  z-index: 10;
+  background-color: #f9fafb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+} 
